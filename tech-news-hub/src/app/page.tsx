@@ -1,10 +1,9 @@
-import Link from "next/link"
+import News from "./news/[category]/page"
 
 export default function Home() {
 	return (
 		<main>
-			<h1>Hello World</h1>
-			<Link href="/news">news</Link>
+			<News />
 		</main>
 	)
 }
