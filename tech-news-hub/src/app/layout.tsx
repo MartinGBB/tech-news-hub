@@ -2,7 +2,7 @@ import { Roboto } from "next/font/google"
 import "../globals.css"
 import Navbar from "./components/navbar/Navbar"
 
-const roboto = Roboto({
+const font = Roboto({
 	weight: "400",
 	subsets: ["latin"],
 	display: "swap",
@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className={roboto.className}>
+			<body className={font.className}>
 				<Navbar />
 				{children}
 			</body>

@@ -16,7 +16,7 @@ export default function NavLinks() {
 
 	return (
 		<section>
-			<ul>{
+			<ul className="flex justify-between">{
 				Object.entries(Routes).map(([name, route]) => (
 					<li key={route}><Link href={`/news${route}`}>{name}</Link></li>
 				)
