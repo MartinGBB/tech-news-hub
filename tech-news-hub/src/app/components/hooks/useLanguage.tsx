@@ -3,12 +3,11 @@
 import { useState } from "react"
 
 export default function useLanguage() {
-	const [language, setLanguage] = useState<string>("en")
+	const [language, setLanguage] = useState<string>("es")
 
 	function handleLanguage(value: string) {
 		setLanguage(value)
 	}
-	console.log(language)
 
 	return {
 		language,

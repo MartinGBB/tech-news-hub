@@ -4,21 +4,19 @@ export default function NavLinks() {
 
 	const Routes = {
 		general: "/general",
-		world: "/world",
-		nation: "/nation",
 		business: "/business",
-		technology: "/technology",
 		entertainment: "/entertainment",
-		sports: "/sports",
+		health: "/health",
 		science: "/science",
-		health: "/health"
+		sports: "/sports",
+		technology: "/technology",
 	}
 
 	return (
 		<section>
 			<ul className="flex justify-between">{
 				Object.entries(Routes).map(([name, route]) => (
-					<li key={route}><Link href={`/news${route}`}>{name}</Link></li>
+					<li key={route}><Link href={`${route}`}>{name}</Link></li>
 				)
 				)
 			}
