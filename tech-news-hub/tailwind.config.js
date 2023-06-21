@@ -7,7 +7,12 @@ module.exports = {
 		"./src/**/*.{ts,tsx,mdx}",
 	],
 	theme: {
-		extend: {},
+		extend: {
+			fontFamily: {
+        roboto: ['var(--font-roboto)'],
+        roboto_condensed: ['var(--font-roboto-condensed)'],
+      },
+		},
 	},
 	plugins: [],
 }

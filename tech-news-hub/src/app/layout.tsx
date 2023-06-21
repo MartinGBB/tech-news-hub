@@ -1,11 +1,18 @@
-import { Roboto } from "next/font/google"
+import { Roboto, Roboto_Condensed } from "next/font/google"
 import "../globals.css"
 import Navbar from "./components/navbar/Navbar"
 
-const font = Roboto({
+const roboto = Roboto({
 	weight: "400",
+	variable: "--font-roboto",
 	subsets: ["latin"],
 	display: "swap",
+})
+
+export const roboto_condensed = Roboto_Condensed({
+	subsets: ["latin"],
+	variable: "--font-roboto-condensed",
+	weight: "400",
 })
 
 export const metadata = {
@@ -20,7 +27,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="en">
-			<body className={font.className}>
+			<body className={`${roboto_condensed.variable} ${roboto.variable}`}>
 				<Navbar />
 				{children}
 			</body>

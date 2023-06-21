@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 html, body, :root {
+  font-family: var(--font-roboto);
   margin: auto;
   max-width: 57rem;
   width: 100%;
