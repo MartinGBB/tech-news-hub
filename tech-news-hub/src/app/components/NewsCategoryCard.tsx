@@ -1,4 +1,4 @@
-import { News } from "../(news)/[category]/NewsListCategory"
+import { News } from "../category/[category]/NewsListCategory"
 
 export default function NewsCategoryCard({ news }: { news: News }) {
 	return (
