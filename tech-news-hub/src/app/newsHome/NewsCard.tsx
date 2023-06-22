@@ -1,25 +1,40 @@
-export default function NewsCard({ news, large }) {
-  const {
-    source,
-    author,
-    title,
-    description,
-    url,
-    urlToImage,
-    publishedAt,
-    content,
-  } = news
+import { News } from './HomeList'
 
+interface NewsProps {
+  large: boolean
+  news: News
+}
+
+export default function NewsCard({ news, large }: NewsProps) {
+  const { author, title, description, url, urlToImage, publishedAt } = news
   return (
     <div
-      className={`bg-white shadow-lg rounded-lg p-6 mb-4 ${large ? 'col-span-2' : 'col-span-1'
-        }`}
+      className={`
+        bg-white
+        shadow-lg
+        rounded-lg
+        p-6
+        mb-4
+        ${large ? 'col-span-2' : 'col-span-1'}
+      `}
     >
-      <div className="mb-4">
-        <h2 className={`text-xl font-bold ${large ? 'text-2xl' : 'text-lg'}`}>
+      <div className="mb-4 bg">
+        <h2
+          className={`
+            text-xl
+            font-bold
+            ${large ? 'text-2xl' : 'text-lg'}
+          `}
+        >
           {title}
         </h2>
         <p className="text-gray-500 mt-1">By {author}</p>
+        <p className="text-gray-500 mt-1">
+          {Intl.DateTimeFormat('en', {
+            dateStyle: 'long',
+            timeStyle: 'short',
+          }).format(new Date(publishedAt))}
+        </p>
       </div>
       <div className="mb-4">
         <img
