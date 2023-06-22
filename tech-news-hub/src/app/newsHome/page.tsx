@@ -1,7 +1,9 @@
-export default async function NewsHome() {
+import HomeList from './HomeList'
+
+export default function NewsHome() {
   return (
     <section>
-      <h1>hello</h1>
+      <HomeList />
     </section>
   )
 }

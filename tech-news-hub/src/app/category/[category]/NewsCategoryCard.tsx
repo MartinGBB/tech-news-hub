@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { News } from '../category/[category]/NewsListCategory'
+import { News } from './NewsListCategory'
 
 export default function NewsCategoryCard({ news }: { news: News }) {
   return (
