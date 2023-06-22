@@ -24,26 +24,27 @@ function NewsListCategoryCategory({ category }: CategoryProps) {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const endpoint = `/api/getData?category=${category}`
+        const endpoint = `/api/getCategory?category=${category}`
         const response = await fetch(endpoint)
 
         if (response.ok) {
           const data = await response.json()
           setNews(data.sources)
         } else {
-          throw new Error('Error fetching news')
+          const errorData = await response.json()
+          throw new Error(errorData)
         }
-
-        setLoading(false)
       } catch (error) {
         console.error('Error fetching news:', error)
         setHasError(true)
+      } finally {
         setLoading(false)
       }
     }
 
     fetchNews()
   }, [category])
+
   if (loading) return <p>loading...</p>
   if (hasError) return <p>Error: An error occurred while loading the news.</p>
 

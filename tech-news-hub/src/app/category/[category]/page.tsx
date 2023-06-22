@@ -1,17 +1,16 @@
 import NewsListCategory from './NewsListCategory'
 
 interface ParamsProps {
-  params?: {
+  params: {
     category: string
   }
 }
 
-export default async function News({ params }: ParamsProps) {
-  const currentCategory = params?.category ?? 'general'
-
+export default async function News({ params: { category } }: ParamsProps) {
+  console.log(category)
   return (
     <section>
-      <NewsListCategory category={currentCategory} />
+      <NewsListCategory category={category} />
     </section>
   )
 }
