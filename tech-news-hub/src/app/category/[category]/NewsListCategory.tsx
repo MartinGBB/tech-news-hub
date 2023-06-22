@@ -1,6 +1,6 @@
 'use client'
-import NewsCategoryCard from '@/app/components/NewsCategoryCard'
 import { memo, useEffect, useState } from 'react'
+import NewsCategoryCard from './NewsCategoryCard'
 
 export interface News {
   id: string
