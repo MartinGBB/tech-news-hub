@@ -1,14 +1,14 @@
-"use client"
+'use client'
 
-import { useRouter } from "next/navigation"
+import { useRouter } from 'next/navigation'
 
 export default function Logo() {
-	const router = useRouter()
+  const router = useRouter()
 
-	return (
-		<h1
-			onClick={() => router.push("/")}
-			className="
+  return (
+    <h1
+      onClick={() => router.push('/')}
+      className="
 				text-5xl
 				font-roboto-condensed
 				cursor-pointer
@@ -16,8 +16,8 @@ export default function Logo() {
 				justify-center
 				p-2
 			"
-		>
-			NewsHub
-		</h1>
-	)
+    >
+      NewsHub
+    </h1>
+  )
 }

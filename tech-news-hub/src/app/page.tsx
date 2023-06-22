@@ -1,9 +1,9 @@
-import NewsHome from "./newsHome/page"
+import NewsHome from './newsHome/page'
 
 export default function Home() {
-	return (
-		<main>
-			<NewsHome />
-		</main>
-	)
+  return (
+    <main>
+      <NewsHome />
+    </main>
+  )
 }

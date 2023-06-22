@@ -1,36 +1,33 @@
-import { Roboto, Roboto_Condensed } from "next/font/google"
-import "../globals.css"
-import Navbar from "./components/navbar/Navbar"
+import { Roboto, Roboto_Condensed as RobotoCondensed } from 'next/font/google'
+import '../globals.css'
+import Navbar from './components/navbar/Navbar'
+import { ReactNode } from 'react'
 
 const roboto = Roboto({
-	weight: "400",
-	variable: "--font-roboto",
-	subsets: ["latin"],
-	display: "swap",
+  weight: '400',
+  variable: '--font-roboto',
+  subsets: ['latin'],
+  display: 'swap',
 })
 
-export const roboto_condensed = Roboto_Condensed({
-	subsets: ["latin"],
-	variable: "--font-roboto-condensed",
-	weight: "400",
+export const robotoCondensed = RobotoCondensed({
+  subsets: ['latin'],
+  variable: '--font-roboto-condensed',
+  weight: '400',
 })
 
 export const metadata = {
-	title: "news-hub",
-	description: "",
+  title: 'news-hub',
+  description: '',
 }
 
-export default function RootLayout({
-	children,
-}: {
-	children: React.ReactNode
-}) {
-	return (
-		<html lang="en">
-			<body className={`${roboto_condensed.variable} ${roboto.variable}`}>
-				<Navbar />
-				{children}
-			</body>
-		</html>
-	)
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en">
+      <body className={`${robotoCondensed.variable} ${roboto.variable}`}>
+        <Navbar />
+        {children}
+      </body>
+    </html>
+  )
 }
