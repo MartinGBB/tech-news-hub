@@ -1,4 +1,4 @@
-import NewsList from "./NewsList"
+import NewsListCategory from "./NewsListCategory"
 
 interface ParamsProps {
 	params?: {
@@ -11,7 +11,7 @@ export default async function News({ params }: ParamsProps) {
 
 	return (
 		<section>
-			<NewsList category={currentCategory} />
+			<NewsListCategory category={currentCategory} />
 		</section>
 	)
 }

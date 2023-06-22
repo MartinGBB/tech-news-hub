@@ -1,6 +1,5 @@
 "use client"
 
-// import Image from "next/image"
 import { useRouter } from "next/navigation"
 
 export default function Logo() {
@@ -9,7 +8,14 @@ export default function Logo() {
 	return (
 		<h1
 			onClick={() => router.push("/")}
-			className="text-5xl font-roboto-condensed cursor-pointer"
+			className="
+				text-5xl
+				font-roboto-condensed
+				cursor-pointer
+				flex
+				justify-center
+				p-2
+			"
 		>
 			NewsHub
 		</h1>

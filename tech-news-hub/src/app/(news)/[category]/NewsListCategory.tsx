@@ -1,12 +1,23 @@
 "use client"
+import NewsCategoryCard from "@/app/components/NewsCategoryCard"
 import { memo, useEffect, useState } from "react"
+
+export interface News {
+	id: string;
+	name: string;
+	description: string;
+	url: string;
+	category: string;
+	language: string;
+	country: string;
+}
 
 interface CategoryProps {
 	category: string
 }
 
-function NewsList({ category }: CategoryProps) {
-	const [news, setNews] = useState<string[]>([])
+function NewsListCategoryCategory({ category }: CategoryProps) {
+	const [news, setNews] = useState<News[]>([])
 	const [loading, setLoading] = useState<boolean>(true)
 	const [hasError, setHasError] = useState<boolean>(false)
 
@@ -34,16 +45,17 @@ function NewsList({ category }: CategoryProps) {
 
 		fetchNews()
 	}, [category])
-
 	if (loading) return <p>loading...</p>
 	if (hasError) return <p>Error: An error occurred while loading the news.</p>
 
 	return (
 		<section>
 			<h1 className="text-3xl text-red-500 font-bold underline">{category}</h1>
-			<pre className="max-w-full overflow-x-auto whitespace-pre-wrap">{JSON.stringify(news, null, 2)}</pre>
+			{news.map((news) => (
+				<NewsCategoryCard key={news.id} news={news} />
+			))}
 		</section>
 	)
 }
 
-export default memo(NewsList)
+export default memo(NewsListCategoryCategory)
