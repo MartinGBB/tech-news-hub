@@ -19,11 +19,14 @@ export default async function HomeList() {
   })
 
   const data = await response.json()
+  const dataIsNotNull = data.articles.filter(
+    (item: News) => !Object.values(item).includes(null),
+  )
 
   return (
-    <section className="grid grid-cols-2 gap-4">
-      {data.articles.map((news: News, index: number) => (
-        <NewsCard key={index} news={news} large={index % 3 === 0} />
+    <section className="grid grid-cols-3 gap-4">
+      {dataIsNotNull.map((news: News, index: number) => (
+        <NewsCard key={index} news={news} large={index % 5 === 0} />
       ))}
     </section>
   )
