@@ -1,8 +1,7 @@
 'use client'
 import { memo, useEffect, useState } from 'react'
 import NewsCategoryCard from './NewsCategoryCard'
-
-import dynamic from 'next/dynamic'
+import LoadingNewsListCategory from '@/app/components/loadingSkeletors/NewsCategory'
 
 export interface News {
   id: string
@@ -18,29 +17,7 @@ interface CategoryProps {
   category: string
 }
 
-const Load = () => {
-  const skeletor = 'animate-pulse bg-gray-200 rounded-md h-4'
-  const repeat = [...Array(3).keys()]
-  return (
-    <>
-      <h1 className={`${skeletor} w-24 my-9`}></h1>
-      {repeat.map((_, i) => {
-        return (
-          <div
-            key={i}
-            className="animate-pulse bg-white rounded-lg shadow-md p-4 m-2"
-          >
-            <h2 className={`${skeletor} mb-2`}></h2>
-            <p className={`${skeletor} mb-4 w-8/12`}></p>
-            <p className={`${skeletor} mt-2 w-12`}></p>
-          </div>
-        )
-      })}
-    </>
-  )
-}
-
-function NewsListCategoryCategory({ category }: CategoryProps) {
+function NewsListCategory({ category }: CategoryProps) {
   const [news, setNews] = useState<News[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [hasError, setHasError] = useState<boolean>(false)
@@ -69,7 +46,7 @@ function NewsListCategoryCategory({ category }: CategoryProps) {
     fetchNews()
   }, [category])
 
-  if (loading) return <Load />
+  if (loading) return <LoadingNewsListCategory />
   if (hasError) return <p>Error: An error occurred while loading the news.</p>
 
   const titleCategory =
@@ -85,4 +62,4 @@ function NewsListCategoryCategory({ category }: CategoryProps) {
   )
 }
 
-export default memo(NewsListCategoryCategory)
+export default memo(NewsListCategory)
