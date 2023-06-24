@@ -16,7 +16,7 @@ export default function NavLinks() {
       <ul className="flex justify-between">
         {Object.entries(Routes).map(([name, route]) => (
           <li
-            className="hover:border-b hover:border-black border-b-2 border-transparent"
+            className="hover:border-b text-sm hover:border-black border-b-2 border-transparent"
             key={route}
           >
             <Link href={`/category${route}`}>{name}</Link>

@@ -2,6 +2,8 @@
 import { memo, useEffect, useState } from 'react'
 import NewsCategoryCard from './NewsCategoryCard'
 
+import dynamic from 'next/dynamic'
+
 export interface News {
   id: string
   name: string
@@ -14,6 +16,28 @@ export interface News {
 
 interface CategoryProps {
   category: string
+}
+
+const Load = () => {
+  const skeletor = 'animate-pulse bg-gray-200 rounded-md h-4'
+  const repeat = [...Array(3).keys()]
+  return (
+    <>
+      <h1 className={`${skeletor} w-24 my-9`}></h1>
+      {repeat.map((_, i) => {
+        return (
+          <div
+            key={i}
+            className="animate-pulse bg-white rounded-lg shadow-md p-4 m-2"
+          >
+            <h2 className={`${skeletor} mb-2`}></h2>
+            <p className={`${skeletor} mb-4 w-8/12`}></p>
+            <p className={`${skeletor} mt-2 w-12`}></p>
+          </div>
+        )
+      })}
+    </>
+  )
 }
 
 function NewsListCategoryCategory({ category }: CategoryProps) {
@@ -45,12 +69,15 @@ function NewsListCategoryCategory({ category }: CategoryProps) {
     fetchNews()
   }, [category])
 
-  if (loading) return <p>loading...</p>
+  if (loading) return <Load />
   if (hasError) return <p>Error: An error occurred while loading the news.</p>
+
+  const titleCategory =
+    category?.at(0)?.toLocaleUpperCase() + category.substring(1)
 
   return (
     <section>
-      <h1 className="text-3xl text-red-500 font-bold underline">{category}</h1>
+      <h1 className="text-3xl font-bold">{titleCategory}</h1>
       {news.map((news) => (
         <NewsCategoryCard key={news.id} news={news} />
       ))}
