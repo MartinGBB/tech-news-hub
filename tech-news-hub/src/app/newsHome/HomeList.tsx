@@ -1,3 +1,41 @@
+// import NewsCard from './NewsCard'
+
+// export interface News {
+//   author: string
+//   title: string
+//   description: string
+//   url: string
+//   urlToImage: string
+//   publishedAt: string
+// }
+
+// export default async function HomeList() {
+//   const endpoint = `https://newsapi.org/v2/everything?q=from=2023-06-21&sortBy=popularity&pageSize=10&page=1`
+//   const response = await fetch(endpoint, {
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'X-Api-Key': `${process.env.API_KEY}`,
+//     },
+//   })
+
+//   const data = await response.json()
+//   const dataIsNotNull = data.articles.filter(
+//     (item: News) => !Object.values(item).includes(null),
+//   )
+
+//   return (
+//     <section className="grid grid-cols-3 gap-4">
+//       {dataIsNotNull.map((news: News, index: number) => (
+//         <NewsCard key={index} news={news} large={index % 5 === 0} />
+//       ))}
+//     </section>
+//   )
+// }
+
+'use client'
+import { memo, useEffect, useState } from 'react'
+import LoadingNewsListCategory from '@/app/components/loadingSkeletors/NewsCategory'
+import { fetchNews } from '@/app/utils/fetchData'
 import NewsCard from './NewsCard'
 
 export interface News {
@@ -9,25 +47,47 @@ export interface News {
   publishedAt: string
 }
 
-export default async function HomeList() {
-  const endpoint = `https://newsapi.org/v2/everything?q=from=2023-06-21&to=2023-06-21&sortBy=popularity&pageSize=10&page=1`
-  const response = await fetch(endpoint, {
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Api-Key': `${process.env.API_KEY}`,
-    },
+function HomeList() {
+  const [news, setNews] = useState<News[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+  const [hasError, setHasError] = useState<boolean>(false)
+
+  const pageSize = '10'
+  const page = '1'
+  const sortBy = 'popularity'
+  useEffect(() => {
+    const endpoint = `${process.env.NEXT_PUBLIC_API_HOME}?sortBy=${sortBy}&pageSize=${pageSize}&page=${page}`
+
+    async function fetchData() {
+      const newsData = await fetchNews(endpoint)
+
+      try {
+        if (newsData && !newsData.error) {
+          setNews(newsData.articles)
+        } else {
+          setHasError(true)
+          throw new Error(newsData.error)
+        }
+      } catch (error) {
+        console.error('Error fetching news:', error)
+        setHasError(true)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchData()
   })
 
-  const data = await response.json()
-  const dataIsNotNull = data.articles.filter(
-    (item: News) => !Object.values(item).includes(null),
-  )
+  if (loading) return <LoadingNewsListCategory />
+  if (hasError) return <p>Error: An error occurred while loading the news.</p>
 
   return (
     <section className="grid grid-cols-3 gap-4">
-      {dataIsNotNull.map((news: News, index: number) => (
+      {news.map((news: News, index: number) => (
         <NewsCard key={index} news={news} large={index % 5 === 0} />
       ))}
     </section>
   )
 }
+
+export default memo(HomeList)

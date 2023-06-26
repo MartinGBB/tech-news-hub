@@ -4,7 +4,7 @@ export async function fetchNews(endpoint: string) {
 
     if (response.ok) {
       const data = await response.json()
-      return data.sources
+      return data
     } else {
       const errorData = await response.json()
       throw new Error(errorData)

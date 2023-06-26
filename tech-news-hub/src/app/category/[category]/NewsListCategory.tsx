@@ -31,7 +31,7 @@ function NewsListCategory({ category }: CategoryProps) {
 
       try {
         if (newsData && !newsData.error) {
-          setNews(newsData)
+          setNews(newsData.sources)
         } else {
           setHasError(true)
           throw new Error(newsData.error)

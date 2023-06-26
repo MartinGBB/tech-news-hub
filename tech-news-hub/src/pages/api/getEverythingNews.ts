@@ -5,7 +5,7 @@ export default async function getEverythingNews(
   res: NextApiResponse,
 ) {
   try {
-    const endpoint = `${process.env.API_NEWS_EVERYTHING}?q=sortBy=${req.query.sortBy}&pageSize=${req.query.pageSize}&page=${req.query.page}`
+    const endpoint = `${process.env.API_NEWS_EVERYTHING}?q=from=2023-06-21&sortBy=${req.query.sortBy}&pageSize=${req.query.pageSize}&page=${req.query.page}`
 
     const headers = {
       'Content-Type': 'application/json',
