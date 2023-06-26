@@ -2,6 +2,7 @@
 import { memo, useEffect, useState } from 'react'
 import NewsCategoryCard from './NewsCategoryCard'
 import LoadingNewsListCategory from '@/app/components/loadingSkeletors/NewsCategory'
+import { fetchNews } from '@/app/utils/fetchData'
 
 export interface News {
   id: string
@@ -23,17 +24,15 @@ function NewsListCategory({ category }: CategoryProps) {
   const [hasError, setHasError] = useState<boolean>(false)
 
   useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const endpoint = `/api/getCategory?category=${category}`
-        const response = await fetch(endpoint)
+    async function fetchData() {
+      const newsData = await fetchNews(category)
 
-        if (response.ok) {
-          const data = await response.json()
-          setNews(data.sources)
+      try {
+        if (newsData && !newsData.error) {
+          setNews(newsData)
+          setLoading(false)
         } else {
-          const errorData = await response.json()
-          throw new Error(errorData)
+          setHasError(true)
         }
       } catch (error) {
         console.error('Error fetching news:', error)
@@ -42,8 +41,7 @@ function NewsListCategory({ category }: CategoryProps) {
         setLoading(false)
       }
     }
-
-    fetchNews()
+    fetchData()
   }, [category])
 
   if (loading) return <LoadingNewsListCategory />
