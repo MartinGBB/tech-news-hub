@@ -1,6 +1,5 @@
-export async function fetchNews(category: string) {
+export async function fetchNews(endpoint: string) {
   try {
-    const endpoint = `/api/getCategory?category=${category}`
     const response = await fetch(endpoint)
 
     if (response.ok) {

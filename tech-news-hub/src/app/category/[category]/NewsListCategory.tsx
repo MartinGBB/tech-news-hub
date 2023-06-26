@@ -24,15 +24,17 @@ function NewsListCategory({ category }: CategoryProps) {
   const [hasError, setHasError] = useState<boolean>(false)
 
   useEffect(() => {
+    const endpoint = process.env.NEXT_PUBLIC_API_CATEGORY + category
+
     async function fetchData() {
-      const newsData = await fetchNews(category)
+      const newsData = await fetchNews(endpoint)
 
       try {
         if (newsData && !newsData.error) {
           setNews(newsData)
-          setLoading(false)
         } else {
           setHasError(true)
+          throw new Error(newsData.error)
         }
       } catch (error) {
         console.error('Error fetching news:', error)
