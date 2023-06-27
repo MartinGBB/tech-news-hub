@@ -3,6 +3,7 @@ import { memo, useEffect, useState } from 'react'
 import LoadingNewsEverything from '@/app/components/loadingSkeletors/NewsEverything'
 import { fetchNews } from '@/app/utils/fetchData'
 import NewsCard from './NewsCard'
+import { definedLarge } from '../utils/largeLayoutConfig'
 
 export interface News {
   author: string
@@ -38,7 +39,7 @@ function HomeList() {
         console.error('Error fetching news:', error)
         setHasError(true)
       } finally {
-        // setLoading(false)
+        setLoading(false)
       }
     }
     fetchData()
@@ -50,7 +51,7 @@ function HomeList() {
   return (
     <section className="grid grid-cols-3 gap-4">
       {news.map((news: News, index: number) => (
-        <NewsCard key={index} news={news} large={index % 5 === 0} />
+        <NewsCard key={index} news={news} large={definedLarge(index)} />
       ))}
     </section>
   )

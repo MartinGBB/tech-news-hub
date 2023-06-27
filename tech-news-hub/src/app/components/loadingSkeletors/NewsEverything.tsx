@@ -1,8 +1,5 @@
+import { definedLarge } from '@/app/utils/largeLayoutConfig'
 import { skeletorObjConfig } from './config'
-
-function definedLarge(index: number) {
-  return index % 5 === 0
-}
 
 export default function LoadingNewsEverything() {
   const skeletor = skeletorObjConfig.classCss
