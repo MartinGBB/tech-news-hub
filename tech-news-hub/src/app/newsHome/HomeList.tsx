@@ -1,6 +1,6 @@
 'use client'
 import { memo, useEffect, useState } from 'react'
-import LoadingNewsListCategory from '@/app/components/loadingSkeletors/NewsCategory'
+import LoadingNewsEverything from '@/app/components/loadingSkeletors/NewsEverything'
 import { fetchNews } from '@/app/utils/fetchData'
 import NewsCard from './NewsCard'
 
@@ -38,13 +38,13 @@ function HomeList() {
         console.error('Error fetching news:', error)
         setHasError(true)
       } finally {
-        setLoading(false)
+        // setLoading(false)
       }
     }
     fetchData()
   })
 
-  if (loading) return <LoadingNewsListCategory />
+  if (loading) return <LoadingNewsEverything />
   if (hasError) return <p>Error: An error occurred while loading the news.</p>
 
   return (

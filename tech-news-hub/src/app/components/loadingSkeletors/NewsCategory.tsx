@@ -1,6 +1,9 @@
+import { skeletorObjConfig } from './config'
+
 export default function LoadingNewsListCategory() {
-  const skeletor = 'animate-pulse bg-gray-200 rounded-md h-4'
-  const repeat = [...Array(3).keys()]
+  const skeletor = skeletorObjConfig.classCss
+  const repeat = skeletorObjConfig.repeat(3)
+
   return (
     <>
       <h1 className={`${skeletor} w-24 my-9`}></h1>
