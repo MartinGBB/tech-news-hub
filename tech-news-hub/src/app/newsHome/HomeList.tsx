@@ -18,12 +18,25 @@ function HomeList() {
   const [news, setNews] = useState<News[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [hasError, setHasError] = useState<boolean>(false)
+  const [currentPage, setCurrentPage] = useState<number>(1)
 
   const pageSize = '10'
-  const page = '1'
   const sortBy = 'popularity'
+
+  const nextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const prevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
   useEffect(() => {
-    const endpoint = `${process.env.NEXT_PUBLIC_API_HOME}?sortBy=${sortBy}&pageSize=${pageSize}&page=${page}`
+    const endpoint = `${process.env.NEXT_PUBLIC_API_HOME}?sortBy=${sortBy}&pageSize=${pageSize}&page=${currentPage}`
 
     async function fetchData() {
       const newsData = await fetchNews(endpoint)
@@ -53,6 +66,12 @@ function HomeList() {
       {news.map((news: News, index: number) => (
         <NewsCard key={index} news={news} large={definedLarge(index)} />
       ))}
+      <div>
+        <button onClick={prevPage} disabled={currentPage === 1}>
+          Prev
+        </button>
+        <button onClick={nextPage}>Next</button>
+      </div>
     </section>
   )
 }
