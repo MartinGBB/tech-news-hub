@@ -35,9 +35,16 @@ function HomeList() {
     }
   }
 
+  const selectPage = (target: EventTarget) => {
+    const page = Number((target as HTMLInputElement).value)
+    setCurrentPage(page)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const btnPage = [...Array(6).keys()].splice(1)
+
   useEffect(() => {
     const endpoint = `${process.env.NEXT_PUBLIC_API_HOME}?sortBy=${sortBy}&pageSize=${pageSize}&page=${currentPage}`
-
     async function fetchData() {
       const newsData = await fetchNews(endpoint)
 
@@ -62,17 +69,45 @@ function HomeList() {
   if (hasError) return <p>Error: An error occurred while loading the news.</p>
 
   return (
-    <section className="grid grid-cols-3 gap-4">
-      {news.map((news: News, index: number) => (
-        <NewsCard key={index} news={news} large={definedLarge(index)} />
-      ))}
-      <div>
-        <button onClick={prevPage} disabled={currentPage === 1}>
+    <>
+      <section className="grid grid-cols-3 gap-4">
+        {news.map((news: News, index: number) => (
+          <NewsCard key={index} news={news} large={definedLarge(index)} />
+        ))}
+      </section>
+      <div className="flex justify-center my-4">
+        <button
+          onClick={prevPage}
+          disabled={currentPage === 1}
+          className="bg-gray-200 text-gray-800 py-2 px-4 rounded-md mr-2 disabled:opacity-50"
+        >
           Prev
         </button>
-        <button onClick={nextPage}>Next</button>
+        {btnPage.map((btn) => (
+          <button
+            key={btn}
+            value={btn}
+            onClick={({ target }) => selectPage(target)}
+            className={`
+              ${btn === currentPage
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-200 text-gray-800'
+              } 
+              py-2 px-4 rounded-md mr-2 disabled:opacity-50
+              `}
+          >
+            {btn}
+          </button>
+        ))}
+        <button
+          onClick={nextPage}
+          disabled={currentPage > 4}
+          className="bg-gray-200 text-gray-800 py-2 px-4 rounded-md disabled:opacity-50"
+        >
+          Next
+        </button>
       </div>
-    </section>
+    </>
   )
 }
 
