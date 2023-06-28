@@ -6,7 +6,7 @@ interface ParamsProps {
   }
 }
 
-export default async function News({ params: { category } }: ParamsProps) {
+export default function News({ params: { category } }: ParamsProps) {
   return (
     <section>
       <NewsListCategory category={category} />

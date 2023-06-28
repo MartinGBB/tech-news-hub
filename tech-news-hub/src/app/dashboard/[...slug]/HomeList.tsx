@@ -3,7 +3,7 @@ import { memo, useEffect, useState } from 'react'
 import LoadingNewsEverything from '@/app/components/loadingSkeletors/NewsEverything'
 import { fetchNews } from '@/app/utils/fetchData'
 import NewsCard from './NewsCard'
-import { definedLarge } from '../utils/largeLayoutConfig'
+import { definedLarge } from '../../utils/largeLayoutConfig'
 
 export interface News {
   author: string
@@ -45,6 +45,7 @@ function HomeList() {
 
   useEffect(() => {
     const endpoint = `${process.env.NEXT_PUBLIC_API_HOME}?sortBy=${sortBy}&pageSize=${pageSize}&page=${currentPage}`
+    // route.push(`/?page=${currentPage}`)
     async function fetchData() {
       const newsData = await fetchNews(endpoint)
 
@@ -67,6 +68,7 @@ function HomeList() {
 
   if (loading) return <LoadingNewsEverything />
   if (hasError) return <p>Error: An error occurred while loading the news.</p>
+  if (!news) return <p>Error al cargar datos.</p>
 
   return (
     <>
@@ -79,7 +81,7 @@ function HomeList() {
         <button
           onClick={prevPage}
           disabled={currentPage === 1}
-          className="bg-gray-200 text-gray-800 py-2 px-4 rounded-md mr-2 disabled:opacity-50"
+          className="bg-gray-200 text-gray-800 py-2 px-4 rounded-md mr-2 disabled:opacity-50 hover:opacity-80"
         >
           Prev
         </button>
@@ -93,7 +95,7 @@ function HomeList() {
                 ? 'bg-blue-500 text-white'
                 : 'bg-gray-200 text-gray-800'
               } 
-              py-2 px-4 rounded-md mr-2 disabled:opacity-50
+              py-2 px-4 rounded-md mr-2 disabled:opacity-50 hover:opacity-80
               `}
           >
             {btn}
@@ -102,7 +104,7 @@ function HomeList() {
         <button
           onClick={nextPage}
           disabled={currentPage > 4}
-          className="bg-gray-200 text-gray-800 py-2 px-4 rounded-md disabled:opacity-50"
+          className="bg-gray-200 text-gray-800 py-2 px-4 rounded-md disabled:opacity-50 hover:opacity-80"
         >
           Next
         </button>

@@ -1,9 +1,9 @@
-import NewsHome from './newsHome/page'
+import Dashboard from './dashboard/Dashboard'
 
 export default function Home() {
   return (
     <main>
-      <NewsHome />
+      <Dashboard />
     </main>
   )
 }
