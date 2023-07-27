@@ -14,14 +14,22 @@ export interface News {
   publishedAt: string
 }
 
-function HomeList() {
+interface HomeListParams {
+  queryParams: {
+    sortBy: string
+    page_size: string
+    page: string
+  }
+}
+
+function HomeList({ queryParams }: HomeListParams) {
   const [news, setNews] = useState<News[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [hasError, setHasError] = useState<boolean>(false)
-  const [currentPage, setCurrentPage] = useState<number>(1)
 
-  const pageSize = '10'
-  const sortBy = 'popularity'
+  const { page, page_size: pageSize, sortBy } = queryParams
+
+  const [currentPage, setCurrentPage] = useState<number>(Number(page))
 
   const nextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1)
@@ -45,7 +53,6 @@ function HomeList() {
 
   useEffect(() => {
     const endpoint = `${process.env.NEXT_PUBLIC_API_HOME}?sortBy=${sortBy}&pageSize=${pageSize}&page=${currentPage}`
-    // route.push(`/?page=${currentPage}`)
     async function fetchData() {
       const newsData = await fetchNews(endpoint)
 
@@ -64,7 +71,7 @@ function HomeList() {
       }
     }
     fetchData()
-  })
+  }, [currentPage, sortBy, pageSize])
 
   if (loading) return <LoadingNewsEverything />
   if (hasError) return <p>Error: An error occurred while loading the news.</p>
@@ -91,9 +98,10 @@ function HomeList() {
             value={btn}
             onClick={({ target }) => selectPage(target)}
             className={`
-              ${btn === currentPage
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-200 text-gray-800'
+              ${
+                btn === currentPage
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-gray-200 text-gray-800'
               } 
               py-2 px-4 rounded-md mr-2 disabled:opacity-50 hover:opacity-80
               `}

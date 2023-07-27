@@ -19,19 +19,21 @@ export default function NewsHome({ params }: HomeSlugParams) {
     return defaultParam
   })
 
-  const findParams = (findParam: string) =>
-    updatedSlug.find((param: string) => param.startsWith(findParam))
-
+  const findParams = (findParam: string) => {
+    const currentParam = updatedSlug.find((param: string) =>
+      param.startsWith(findParam),
+    )
+    return currentParam?.split('-')[1]
+  }
   const slugParams = {
     sortBy: findParams('sortby-'),
     page_size: findParams('pageSize-'),
     page: findParams('page-'),
   }
 
-  console.log(slugParams)
   return (
     <section>
-      <HomeList />
+      <HomeList queryParams={slugParams} />
     </section>
   )
 }
